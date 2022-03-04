@@ -8,13 +8,60 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="./src/styles/main.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box;  }
+        :root { --accent: #ff9e00; --bg: #212329; --appbar: #1f1d21; }
+        body {
+            background: var(--bg);
+            min-height: 100vh;
+        }
+
+        appbar {
+            background: var(--appbar);
+            display: flex; align-items: center; justify-content: space-between;
+            height: clamp( 80px, 10vw, 160px );
+        }
+
+        header {
+            background: #00000010;
+            backdrop-filter: blur(12%);
+            height: 80vw;
+
+        }
+
+        main {
+            background: goldenrod;
+            min-height: 100vw;
+        }
+
+        footer {
+            background: var(--appbar);
+            height: 30vw;
+        }
+    </style>
 
     <title>dark-seed</title>
 </head>
 <body>
 
-    <h1>Ceo Sammarco</h1>
+    <appbar>
+        <a><h1>Ceo Sammarco</h1></a>
+        <appbar-right>
+            <a href="#">#</a>
+            <a href="#">#</a>
+            <a href="#">#</a>
+        </appbar-right>
+    </appbar>
 
+    <header>
+
+    </header>
+
+    <main></main>
+
+    <footer>
+        <hr>
+    </footer>
 
 
     <script src="src/scripts/script.js"></script>

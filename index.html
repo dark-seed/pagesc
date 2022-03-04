@@ -10,20 +10,37 @@
     <link rel="stylesheet" href="./src/styles/main.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box;  }
-        :root { --accent: #ff9e00; --bg: #212329; --appbar: #1f1d21; }
+        :root { 
+            --accent: #ff9e00; 
+            --bg: #212329; 
+            --appbar: #1f1d21; 
+            --burger: #f5deb3;
+            --x: #ff9e00;
+            --forma: #f5deb3;
+            --bun-top: #a77932;
+            --potato: #fb3434;
+            --cheese: #84d644;
+            --meat: #633200;
+            --bun-bottom: #a77a33;
+            --linkSelector: #00000050;
+            --link: #000000;
+            
+        }
         a { text-decoration: none; }
         body {
             background: var(--bg);
             min-height: 100vh;
             display: flex; flex-direction: column; 
         }
-
+        
+        #burger-toggle, .burger, .burgerNav, .burguerNav-wrapper, .burguerNav-nav, .burger-link { display: none; }
         appbar {
             background: var(--appbar);
             display: flex; align-items: center; justify-content: space-between;
             height: clamp( 70px, 10vw, 100px );
             padding: 0 5vw;
         }
+        appbar-right { display: flex; }
 
         header {
             background: #00000010;
@@ -42,6 +59,126 @@
             height: 30vw;
             margin-top: auto;
         }
+
+        @media only screen and ( max-width: 640px ) {
+
+            appbar-right { display: none; }
+
+            .burger, .burgerNav, .burguerNav-wrapper { display: block; }
+            .burguerNav-nav { display: flex; }
+
+                /*
+                burger
+                ----------------------------------*/
+                .burger {
+                    display: block;
+                    width: 2em;
+                    height: 45px;
+                    z-index: 5;
+                }
+
+                .burger div {
+                    position: relative;
+                    width: 2em;
+                    height: 7px;
+                    border-radius: 2px;
+                    margin-top: 8px;  
+                    transition: all 0.2s ease-in-out;
+                }
+                .burger-top { background: var(--x); /* border-radius: 80px 80px 0px 0px; */ /* height: 8px; */ }
+                .burger-meat { background: var(--forma); /* border-radius: 6px; */ /* height: 7px; */ }
+                .burger-bottom { background: var(--x); /* border-radius: 1px 1px 4px 4px; */ /* height:7px; */ }
+
+
+                /*
+                Nav Styles
+                --------------------------------*/
+                .burgerNav {
+                    position: fixed;
+                    width: 100%;
+                    height: 0;
+                    box-shadow: 0 0 10px #00000090;
+                    background-color: var(--accent);
+                    top: 70px; left: 0;
+                    overflow: hidden;
+                    transition: all 0.3s ease-in;
+                    transform: scale(1);
+                    visibility: hidden;
+                    opacity: 0;
+                    z-index: 5;
+                }
+                .burguerNav-wrapper {
+                    position: relative;
+                    overflow: hidden;
+                    overflow-y: hidden;
+                    width: 100%;
+                    height: 100%;
+                }
+                .burguerNav-nav { 
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                }
+                
+                .burger-link:hover {
+                    color: white;
+                    background: #212329;
+                }
+
+                .burger-link {
+                    position: relative;
+                    text-decoration: none;
+                    color: #ffffff;
+                    font-size: 1.6em;
+                    display: grid;
+                    place-items: center;
+                    opacity: 0;
+                    transition: color 0.2s ease-in-out;
+                    letter-spacing: 1px;
+                    width: 100%;
+                    height: 13.33vw;
+                    transition: .3s ease-in;
+                    right: 0px;
+                }
+
+                /*
+                Animations
+                --------------------------------*/
+                #burger-toggle:checked + .burger .burger-top {
+                    margin-top: 25px;        
+                    transform: rotate(-45deg);
+                    border-radius: 3px;
+                    background: var(--x);
+                }
+                #burger-toggle:checked + .burger .burger-bottom {
+                    opacity: 0;
+                    transform: rotate(45deg);
+                    background: var(--x);
+                }
+                #burger-toggle:checked + .burger .burger-meat {
+                    margin-top: -7px;             
+                    transform: rotate(45deg);
+                    background: var(--x);
+                }
+
+                #burger-toggle:checked .burger {
+                    top: 0;
+                    transform: scale(1);
+                }
+                #burger-toggle:checked ~ .burgerNav .burger-link {
+                    transition: .3s ease-out;
+                    right: 0;
+                    opacity: 1;
+                }
+                #burger-toggle:checked ~ .burgerNav {
+                    transition: .4s ease-out;
+                    top: 70px;
+                    visibility: visible;
+                    opacity: 1;
+                    height: 40vw;
+                }
+
+        }
     </style>
 
     <title>dark-seed</title>
@@ -55,6 +192,26 @@
             <a href="#">#</a>
             <a href="#">#</a>
         </appbar-right>
+        
+        <!-- media -->
+        <input id="burger-toggle" type="checkbox"></input>
+
+        <label for="burger-toggle" class="burger">
+          <div class="burger-top"></div>
+          <div class="burger-meat"></div>
+          <div class="burger-bottom"></div>
+        </label>
+        
+        <div class="burgerNav">
+          <div class="burguerNav-wrapper">
+            <nav class="burguerNav-nav">
+              <a class="burger-link" href="/produtos">MONTE DO SEU JEITO</a>
+              <a class="burger-link" href="/carrinho">CARRINHO</a>
+              <span class="burger-link" onclick="openNavDrawer()">LOGIN / REGISTRO</span>
+            </nav>
+          </div>
+        </div>
+
     </appbar>
 
     <header>
